@@ -1,21 +1,3 @@
-class Game {
-
-    public static void main(String args[]) throws java.io.IOException {
-    	PlayingCard[] deck = new PlayingCard[5];
-    	
-    	deck[0] = new PlayingCard("two", "clubs");
-    	deck[1] = new PlayingCard("king", "spades");
-    	deck[2] = new PlayingCard("five", "clubs");
-    	deck[3] = new PlayingCard("jack", "diamonds");
-    	deck[4] = new PlayingCard("ace", "hearts");
-
-    	for(int i = 0; i < deck.length; i++) {
-    		PlayingCard c = deck[i]; 
-    		System.out.println("Card " + i + " is the " + c.name + " of " + c.suit + " and its value is " + c.flip());
-    	}
-    }
-}
-
 class PlayingCard {
     int value;
     String name;

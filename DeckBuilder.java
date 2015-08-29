@@ -10,6 +10,7 @@ class DeckBuilder {
         for(int n = 0; n < 4; n++) {
             String suit = suits[i];
             String name;
+            int value;
 
             for(int i = 1; i < 14; i++) {
                 switch(i) {
