@@ -1,6 +1,9 @@
 class DeckBuilder {
 
-    private Card[] gen() {
+    private Card[] genDeck() {
+        int index = 0;
+        //Card[] deck = new Card[]
+        // just have deck constructor that takes an array and adds elements, may be easier until io sorted- do this option to make deck general, have deck and card super or abstract or interface
 
         String[] suits = {"hearts", "diamonds", "clubs", "spades"};
 
@@ -9,10 +12,10 @@ class DeckBuilder {
             String name;
 
             for(int i = 1; i < 14; i++) {
-                
-                switch (i) {
+                switch(i) {
                     case 1:
                         name = "ace"
+                        value = i;
                     case 2:
                         name = "two"
                         value = i;
@@ -50,7 +53,9 @@ class DeckBuilder {
                         name = "king"
                         value = i;
                 }
+                deck[index++] = new Card(name, value, suit);
             }
         }
+        return deck;
     }
 }

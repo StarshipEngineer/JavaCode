@@ -2,18 +2,28 @@ class Card {
     int value;
     String name;
     String suit;
-    String choice;
+    char choice;
 
-    Card(int val, String suit) {
-        
-        //take 2 args, or just one, either int or overloaded string? if string use a switch, but lots of cases
+    Card(String n, int v, String s) {
+        name = n;
+        value = v;
+        suit = s;
     }
 
-    int draw() {
-        if (value == "Ace") {
+    int draw() throws jave.io.IOException {
+        if (name == "ace") {
             System.out.println("Enter your choice: high or low?");
-            ace = System.in.read();
-            //switch
+            choice = (char) System.in.read();
+
+            switch(choice) {
+                case "h":
+                    value = 14;
+                case "l":
+                    value = 1;
+            }
+        }
+        else {
+            value = 
         }
     }
 }
