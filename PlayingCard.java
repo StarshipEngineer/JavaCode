@@ -1,65 +1,70 @@
+package JavaCode;
+
 class PlayingCard {
-    int value;
+    private int value;
     String name;
     String suit;
     char choice;
 
     PlayingCard(String n, String s) {        
         suit = s;
+        name = n;
 
-        switch (n) {
+        switch (name) {
             case "ace":
-                name = n;
                 value = 1;
+                break;
             case "two":
-                name = n;
                 value = 2;
+                break;
             case "three":
-                name = n;
                 value = 3;
+                break;
             case "four":
-                name = n;
                 value = 4;
+                break;
             case "five":
-                name = n;
                 value = 5;
+                break;
             case "six":
-                name = n;
                 value = 6;
+                break;
             case "seven":
-                name = n;
                 value = 7;
+                break;
             case "eight":
-                name = n;
                 value = 8;
+                break;
             case "nine":
-                name = n;
                 value = 9;
+                break;
             case "ten":
-                name = n;
                 value = 10;
+                break;
             case "jack":
-                name = n;
                 value = 11;
+                break;
             case "queen":
-                name = n;
                 value = 12;
+                break;
             case "king":
-                name = n;
                 value = 13;
+                break;
         }
     }
 
     int flip() throws java.io.IOException {
         if (name == "ace") {
-            System.out.println("Enter your choice: high or low?");
+            System.out.println("Enter your choice: high (h) or low (l)?");
             choice = (char) System.in.read();
 
             switch(choice) {
                 case 'h':
                     value = 14;
+                    break;
                 case 'l':
                     value = 1;
+                    break;
             }
         }
         return value; 
