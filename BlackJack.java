@@ -9,54 +9,62 @@ class BlackJack {
     public static void main(String args[]) throws IOException {
         DeckBuilder b = new DeckBuilder();
         PlayingCard[] cards = b.genDeck();
-        Deck deck = new Deck(cards);
-        deck.shuffle();
-        char ch, choice;
-
-        do {
-            PlayingCard card1 = deck.draw();
-            PlayingCard card2 = deck.draw();
-            System.out.print(card1.name + " of " + card1.suit + ", ");
-            System.out.print(card2.name + " of " + card2.suit);
-            int score = card1.value + card2.value;
-            System.out.println("score = " + score);
-            if(score == 21) {
-                System.out.println("Blackjack!");
-                break;
-            }
-            else if(score > 21) {
-                System.out.println("Bust!");
-                break;
-            }
-
-
-            do {
-                System.out.println("Hit (h) or stay (s)?");
-                ch = (char) System.in.read();
-                if(ch == 'h') {
-                    PlayingCard next = deck.draw();
-                    System.out.println(next.name + " of " + next.suit);
-                    score += next.value;
-                    System.out.println("score = " + score);
-                    if(score > 21) {
-                        System.out.println("Bust!");
-                        break;
-                    }
-                }
-            } while(ch == 'h' && score <= 21);
-
-            if(score <= 21) {
-                System.out.println("Your score is " + score);
-            }
-            else {System.out.println("Bust!");}
-            
-            System.out.println("Would you like to play again? y or n.");
-            choice = (char) System.in.read();
-        } while(choice == 'y');
+        Deck playingdeck = new Deck(cards);
+        playingdeck.shuffle();
+        
+        playRound(playingdeck);
     }
-
-    void playRound() {
-        //
+    
+    static int choose(Deck deck, int sc) throws IOException {
+        System.out.println("Hit (h) or stay (any other key)?");
+        char ch = (char) System.in.read();
+        if(ch == 'h') {
+            PlayingCard next = deck.draw();
+            System.out.println(next.name + " of " + next.suit);
+            sc += next.value;
+            System.out.println("score = " + sc);
+            if(sc > 21) {
+                return sc;
+            }
+            else { return choose(deck, sc); }
+        }
+        else {
+            return sc;
+        }
+    }
+    
+    static void playRound(Deck deck) throws IOException {
+        PlayingCard card1 = deck.draw();
+        PlayingCard card2 = deck.draw();
+        System.out.print(card1.name + " of " + card1.suit + ", ");
+        System.out.print(card2.name + " of " + card2.suit);
+        int score = card1.value + card2.value;
+        System.out.println("score = " + score);
+        if(score == 21) {
+            System.out.println("Blackjack!");
+        }
+        else {
+            score = choose(deck, score);
+            if(score > 21) {
+                System.out.println("Bust!"); 
+            }
+            else if(score == 21) {
+                System.out.println("Twenty-one!");
+            }
+            else {
+                System.out.println("Your score: " + score);
+            }
+        }
+        
+        System.out.println("Would you like to play again? y for yes and n for no.");
+        char choice = (char) System.in.read();
+        if(choice == 'y') {
+            playRound(deck);
+        }
+        
+        else {
+            System.out.println("Good game.");
+        }
     }
 }
 
@@ -162,7 +170,7 @@ class Deck {
         }
     }
 
-    PlayingCard draw() {
+    public PlayingCard draw() {
         if(getloc == putloc) {
             getloc = 0;
             shuffle();            
@@ -179,7 +187,7 @@ class Deck {
         d[putloc++] = p;
     }
 
-    void shuffle() {
+    public void shuffle() {
         Random r = new Random();
         for(int i = d.length-1; i > 0; i--) {
             int rand = r.nextInt(i);
