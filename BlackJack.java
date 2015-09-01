@@ -7,15 +7,18 @@ import java.util.Random;
 class BlackJack {
 
     public static void main(String args[]) throws IOException {
+        Rules rul = new Rules();
         DeckBuilder b = new DeckBuilder();
         PlayingCard[] cards = b.genDeck();
         Deck playingdeck = new Deck(cards);
         playingdeck.shuffle();
         
-        playRound(playingdeck);
+        Rules.playRound(playingdeck);
     }
-    
-    static int choose(Deck deck, int sc) throws IOException {
+}
+
+class Rules { // make this class static? 
+    private static int choose(Deck deck, int sc) throws IOException {
         System.out.println("Hit (h) or stay (any other key)?");
         char ch = (char) System.in.read();
         if(ch == 'h') {
@@ -33,7 +36,7 @@ class BlackJack {
         }
     }
     
-    static void playRound(Deck deck) throws IOException {
+    public static void playRound(Deck deck) throws IOException {
         PlayingCard card1 = deck.draw();
         PlayingCard card2 = deck.draw();
         System.out.print(card1.name + " of " + card1.suit + ", ");
@@ -121,12 +124,6 @@ class PlayingCard {
         }
     }
 
-    PlayingCard() {
-            name = "none";
-            suit = "none";
-            value = 0;
-    }
-
     int peek() {
         return value;
     }
@@ -198,7 +195,7 @@ class Deck {
     }
 }
 
-class DeckBuilder {
+class DeckBuilder { // Make this class static too?
 
     PlayingCard[] genDeck() {
         int index = 0;
